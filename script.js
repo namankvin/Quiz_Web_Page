@@ -36,12 +36,11 @@ const questions = {
   movies: [
     { question: "Who directed the movie 'Inception'?", options: ["Steven Spielberg", "Christopher Nolan", "Quentin Tarantino", "James Cameron"], answer: "Christopher Nolan" },
     { question: "Which movie features the character 'Tony Stark'?", options: ["Spider-Man", "Iron Man", "Batman", "Superman"], answer: "Iron Man" },
-    { question: "What is the highest-grossing movie of all time?", options: ["Avatar", "Avengers: Endgame", "Titanic", "Star Wars: The Force Awakens"], answer: "Avengers: Endgame" },
+    { question: "What is the highest-grossing movie of all time?", options: ["Avatar", "Avengers: Endgame", "Titanic", "Star Wars: The Force Awakens"], answer: "Avatar" },
     { question: "Which actor played the role of Jack in 'Titanic'?", options: ["Leonardo DiCaprio", "Brad Pitt", "Tom Cruise", "Johnny Depp"], answer: "Leonardo DiCaprio" }
   ]
 };
 
-// Event listeners for genre selection
 document.querySelectorAll('.genre-btn').forEach(button => {
   button.addEventListener('click', () => {
     currentGenre = button.getAttribute('data-genre');
@@ -51,18 +50,16 @@ document.querySelectorAll('.genre-btn').forEach(button => {
   });
 });
 
-// Start the quiz
 function startQuiz() {
   currentQuestionIndex = 0;
   score = 0;
   showQuestion();
 }
 
-// Display the current question
 function showQuestion() {
-  clearInterval(timer); // Clear any existing timer
-  timeLeft = 10; // Reset timer
-  timerElement.textContent = timeLeft; // Update timer display
+  clearInterval(timer);
+  timeLeft = 10;
+  timerElement.textContent = timeLeft;
 
   const currentQuestion = questions[currentGenre][currentQuestionIndex];
   questionElement.textContent = currentQuestion.question;
@@ -79,13 +76,10 @@ function showQuestion() {
   startTimer();
 }
 
-// Start the timer for each question
-// Start the timer for each question
 function startTimer() {
   timeLeft = 10;
   timerElement.textContent = timeLeft;
 
-  // Reset status bar width
   const statusBarProgress = document.getElementById('status-bar-progress');
   statusBarProgress.style.width = '100%';
 
@@ -93,7 +87,6 @@ function startTimer() {
     timeLeft--;
     timerElement.textContent = timeLeft;
 
-    // Update status bar width
     const progressWidth = (timeLeft / 10) * 100;
     statusBarProgress.style.width = `${progressWidth}%`;
 
@@ -106,19 +99,16 @@ function startTimer() {
   }, 1000);
 }
 
-// Handle answer selection
 function selectAnswer(selectedOption, clickedButton) {
-  clearInterval(timer); // Stop timer once an answer is selected
+  clearInterval(timer);
 
   const currentQuestion = questions[currentGenre][currentQuestionIndex];
   const buttons = optionsElement.querySelectorAll('button');
 
-  // Disable all buttons
   buttons.forEach(button => {
     button.disabled = true;
   });
 
-  // Highlight correct and incorrect answers
   buttons.forEach(button => {
     if (button.textContent === currentQuestion.answer) {
       button.classList.add('correct');
@@ -127,7 +117,6 @@ function selectAnswer(selectedOption, clickedButton) {
     }
   });
 
-  // Update score if the answer is correct
   if (selectedOption === currentQuestion.answer) {
     score++;
   }
@@ -135,7 +124,6 @@ function selectAnswer(selectedOption, clickedButton) {
   nextButton.classList.remove('hidden');
 }
 
-// Disable all answer options
 function disableOptions() {
   const buttons = optionsElement.querySelectorAll('button');
   buttons.forEach(button => {
@@ -143,7 +131,6 @@ function disableOptions() {
   });
 }
 
-// Show correct answer when time runs out
 function showCorrectAnswer() {
   const buttons = optionsElement.querySelectorAll('button');
   buttons.forEach(button => {
@@ -153,7 +140,6 @@ function showCorrectAnswer() {
   });
 }
 
-// Move to the next question
 nextButton.addEventListener('click', () => {
   currentQuestionIndex++;
   if (currentQuestionIndex < questions[currentGenre].length) {
@@ -163,14 +149,12 @@ nextButton.addEventListener('click', () => {
   }
 });
 
-// End the quiz and show results
 function endQuiz() {
   quizContainer.classList.add('hidden');
   resultContainer.classList.remove('hidden');
   scoreElement.textContent = `${score} out of ${questions[currentGenre].length}`;
 }
 
-// Restart the quiz
 restartButton.addEventListener('click', () => {
   resultContainer.classList.add('hidden');
   genreSelection.classList.remove('hidden');
