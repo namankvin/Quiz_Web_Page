@@ -41,8 +41,8 @@ const questions = {
   ]
 };
 
-document.querySelectorAll('.genre-btn').forEach(button => {
-  button.addEventListener('click', () => {
+document.querySelectorAll('.genre-btn').forEach(function(button) {
+  button.addEventListener('click', function() {
     currentGenre = button.getAttribute('data-genre');
     genreSelection.classList.add('hidden');
     quizContainer.classList.remove('hidden');
@@ -65,10 +65,12 @@ function showQuestion() {
   questionElement.textContent = currentQuestion.question;
   optionsElement.innerHTML = '';
 
-  currentQuestion.options.forEach(option => {
+  currentQuestion.options.forEach(function(option) {
     const button = document.createElement('button');
     button.textContent = option;
-    button.addEventListener('click', () => selectAnswer(option, button));
+    button.addEventListener('click', function() {
+      selectAnswer(option, button);
+    });
     optionsElement.appendChild(button);
   });
 
@@ -83,12 +85,12 @@ function startTimer() {
   const statusBarProgress = document.getElementById('status-bar-progress');
   statusBarProgress.style.width = '100%';
 
-  timer = setInterval(() => {
+  timer = setInterval(function() {
     timeLeft--;
     timerElement.textContent = timeLeft;
 
     const progressWidth = (timeLeft / 10) * 100;
-    statusBarProgress.style.width = `${progressWidth}%`;
+    statusBarProgress.style.width = progressWidth + '%';
 
     if (timeLeft <= 0) {
       clearInterval(timer);
@@ -105,11 +107,11 @@ function selectAnswer(selectedOption, clickedButton) {
   const currentQuestion = questions[currentGenre][currentQuestionIndex];
   const buttons = optionsElement.querySelectorAll('button');
 
-  buttons.forEach(button => {
+  buttons.forEach(function(button) {
     button.disabled = true;
   });
 
-  buttons.forEach(button => {
+  buttons.forEach(function(button) {
     if (button.textContent === currentQuestion.answer) {
       button.classList.add('correct');
     } else if (button === clickedButton) {
@@ -126,21 +128,21 @@ function selectAnswer(selectedOption, clickedButton) {
 
 function disableOptions() {
   const buttons = optionsElement.querySelectorAll('button');
-  buttons.forEach(button => {
+  buttons.forEach(function(button) {
     button.disabled = true;
   });
 }
 
 function showCorrectAnswer() {
   const buttons = optionsElement.querySelectorAll('button');
-  buttons.forEach(button => {
+  buttons.forEach(function(button) {
     if (button.textContent === questions[currentGenre][currentQuestionIndex].answer) {
       button.classList.add('correct');
     }
   });
 }
 
-nextButton.addEventListener('click', () => {
+nextButton.addEventListener('click', function() {
   currentQuestionIndex++;
   if (currentQuestionIndex < questions[currentGenre].length) {
     showQuestion();
@@ -155,7 +157,7 @@ function endQuiz() {
   scoreElement.textContent = `${score} out of ${questions[currentGenre].length}`;
 }
 
-restartButton.addEventListener('click', () => {
+restartButton.addEventListener('click', function() {
   resultContainer.classList.add('hidden');
   genreSelection.classList.remove('hidden');
   currentQuestionIndex = 0;
