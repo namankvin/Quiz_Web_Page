@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz Web Page</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Quiz</h1>
+    <div id="genre-selection">
+      <h2>Choose a Genre:</h2>
+      <button class="genre-btn" data-genre="general">General Knowledge</button>
+      <button class="genre-btn" data-genre="science">Science</button>
+      <button class="genre-btn" data-genre="history">History</button>
+      <button class="genre-btn" data-genre="movies">Movies</button>
+    </div>
+    <div id="quiz-container" class="hidden">
+      <div id="timer">Time Left: <span id="time">10</span>s</div>
+      <div id="status-bar">
+        <div id="status-bar-progress"></div>
+      </div>
+      <div id="question"></div>
+      <div id="options"></div>
+      <button id="next-btn" class="hidden">Next Question</button>
+    </div>
+    <div id="result-container" class="hidden">
+      <h2>Your Score <br> <span id="score">0</span></h2>
+      <button id="restart-btn">Restart Quiz</button>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
